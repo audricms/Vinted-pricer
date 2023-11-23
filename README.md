@@ -1,1 +1,3 @@
-# Vinted-pricer
+# Vinted-pricer :cat:
+
+:koala:
