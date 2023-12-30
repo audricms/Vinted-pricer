@@ -19,7 +19,7 @@ Le projet est structuré comme suit :
 - **`Modélisation.ipynb`** est le notebook responsable de la modélisation
 - **`Bases de données`** correspond au dossier de bases de données utilisées et créées au long du projet
 
-[!TIP Faire tourner les notebooks dans le même ordre que les étapes]
+Faire tourner les notebooks dans le même ordre que les étapes !
 
 ## Étape 1 : Récolte de données en scrappant le site [Vinted.fr](https://www.vinted.fr/)
 Le scrapping des données est réalisé dans le notebook **`VintedScrapping.ipynb`**.
@@ -123,12 +123,6 @@ Exemple de manipulation pour obtenir notre dataframe final :
 dfjointe = df3.join(dfrev, on='Localisation', how='left')
 ```
 
-### Définition des objectifs et des méthodes à partir de ce nouveau dataframe complet
-
-- Comparer les deux cartes et voir si on peut observer des tendances similaires ou divergentes entre vote écologique et revenus sur selon les départements
-- Faire des régressions linéaires pour répondre à nos interrogations initiales
-- Conclure
-
 ## Étape 3 bis : Visualisation 
 À la suite du travail d'agrégation de données dans un `Dataframe` nommé `df3`, nous avons souhaité visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinait. Nous avons alors introduit `dfdesc` qui regroupe grâce à la commande groupby `df3` et `dféconupes`.
 
@@ -138,6 +132,7 @@ Nous avons ensuite trié le DataFrame en fonction de cette colonne grâce à la 
 Enfin, nous avons créé un graphique en barres avec `Matplotlib` grâce à la commande `plot` et en utilisant les valeurs de '%popent' sur l'axe des x et les valeurs des prix moyens sur l'axe des y.
 
 On obtient l'histogramme suivant :
+
 <img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
 
 
@@ -178,20 +173,17 @@ reg.score(X_test, Y_test)
 Pour prendre connaissance des variables explicatives significatives (du point de vue de la prédiction), nous visualisons les coefficients de celles-ci dans la régression linéaire préalablement calculée.
 
 
-### Calcul et visualisation des coefficients de la seconde régression linéaire
 
+Les variables de taille, en particulier 5XL et M semble être les plus significatives. L'une par sa rareté et l'autre son abondance sûrement. Aussi, le revenu par commune semble également significatif. L'état "Neuf avec étiquette" semble également significatif. Le résultat des votes est également moyennement significatif
+
+### Calcul et visualisation des coefficients de la seconde régression linéaire
 Par manque de données, nous soupçonnons que les variables de taille surentraîne le modèle. C'est poourquoi nous calculons une deuxième régression linéaire sans régresser le prix sur les variables de taille. Il vient un R² plus bas, d'approximativement 0,16. Il semblerait que notre hypothèse était mauvaise.
 
 Aussi, nous visualisons les coefficients des variables explicatives de cette seconde régression sous la forme d'un barplot.
 
 
 
+On remarque que les coefficients sont relativement inchangés en termes d'importance relative.
 
-
-## Étape 4 : affichage synthétisé des résultats et conclusions
-
-- On obtient ces deux premiers histogrammes :
-<img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
-
-
-<img width="603" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/78cd1694-1457-4927-8fb8-1d405e69e412">
+### Pistes d'amélioration de la modélisation
+Il serait intéressante d'entraîner et de tester d'autres modèles. Le prix qui a priori aurait été une variable continue, est a en réalité plutôt discret. Il serait alors intéressant d'analyser les résultats de modèle de classification comme une forêt aléatoire.
