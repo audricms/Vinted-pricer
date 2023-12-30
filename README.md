@@ -6,7 +6,7 @@
 
 ## Introduction et motivations pour ce projet
 
-Vinted.fr est un site qui connait un fort succès depuis quelques années. Il s'agit d'un marché en ligne communautaire qui permet de vendre, acheter et échanger des vêtements et accessoires d'occasion. Alors que la fast fashion est de plus en plus décriée pour des raisons sociales et écologiques, il nous paraît intéressant de nous pencher sur une solution au problème telle que Vinted. Notre projet tente de répondre à quelques interrogations : 
+[Vinted.fr](https://www.vinted.fr/) est un site qui connait un fort succès depuis quelques années. Il s'agit d'un marché en ligne communautaire qui permet de vendre, acheter et échanger des vêtements et accessoires d'occasion. Alors que la fast fashion est de plus en plus décriée pour des raisons sociales et écologiques, il nous paraît intéressant de nous pencher sur une solution au problème telle que Vinted. Notre projet tente de répondre à quelques interrogations : 
 - Est-ce que les vêtements de seconde main sont plus chers selon la richesse de la commune de vente ?
 - Est-ce qu'il y a plus d'annonces de vente dans les zones géographiques qui votent proportionnellement plus pour les écologistes ?
   
@@ -14,7 +14,7 @@ Nous vous laissons lire la suite du projet pour en avoir les réponses.
 
 ### Structure du projet !!!!!
 
-## Étape 1 : Récolte de données en scrappant le site Vinted.fr
+## Étape 1 : Récolte de données en scrappant le site [Vinted.fr](https://www.vinted.fr/)
 
 Le scrapping des données est réalisé dans le notebook **`VintedScrapping.ipynb`**.
 
