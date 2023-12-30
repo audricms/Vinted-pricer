@@ -13,15 +13,15 @@ Vinted est un site qui connait un fort succès depuis quelques années. Il s'agi
   
 Nous vous laissons lire la suite du projet pour en avoir les réponses.
 
-## Étape 1 : extraction de données en scrappant le Vinted
+## Étape 1 : extraction de données en scrappant le site Vinted
 ### Scrapping
-Le scrapper a été codé grâce au module selenium et fonctionne avec le browser chromedrivermanager.
+Le scrapper a été codé grâce au module selenium et fonctionne avec le browser Chronium.
 
-Le scrapper commence par se connecter sur la page d'accueil du site Vinted.fr et par accepter les cookies s'ils existent. Il lance ensuite une recherche à partir des caractéristiques fournies par l'utilisateur sur le vêtement souhaité (exemple : tshirt noir homme ou encore jean homme), puis se dirige vers les résultats de recherches.
+Le scrapper lance une recherche à partir des caractéristiques fournies par l'utilisateur sur le vêtement souhaité (exemple : tshirt noir homme ou encore jean homme), puis se dirige vers les résultats de recherches. Il accepte en amont les cookies s'ils existent.
 <img width="1391" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/a8953e39-8d7b-4e48-8fde-ec2415654b11">
 
-Ensuite, à partir de chaque article, on relève les informations suivantes : prix, marque, taille, état, matière, localisation, option de paiement, nombre de vues et date d'ajout.
-Cependant selenium ne parvenait pas à obtenir les liens HTML de manière automatisée pour chacune de ces informations. Il a donc fallu identifier la structure des liens HTML (qui est plutôt homogène pour l'ensemble des articles) et obtenir le texte des liens : 
+Le scrapper récupère ensuite tous les liens HTML des articles proposés à partir de la recherche de l'utilisateur. Pour ce faire, il utilise 
+
 ```
 scrapping = {}
     
@@ -43,7 +43,7 @@ scrapping = {}
             continue
 ```
 
-Une fois que la structure du lien HTML correspondant à l'article est identifiée, on peut relever les informations mentionnées précédemment. 
+Ensuite, à partir de chaque article, on relève les informations suivantes : prix, marque, taille, état, matière, localisation, option de paiement, nombre de vues et date d'ajout. Cependant selenium ne parvenait pas à obtenir les liens HTML de manière automatisée pour chacune de ces informations. Il a donc fallu identifier la structure des liens HTML (qui est plutôt homogène pour l'ensemble des articles) et obtenir le texte des liens. Une fois que la structure du lien HTML correspondant à l'article est identifiée, on peut relever les informations mentionnées précédemment. 
 
 Exemple de code pour trouver le prix d'un article et le stocker dans la colonne prix :
 ```
