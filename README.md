@@ -11,7 +11,16 @@
   
 Nous vous laissons lire la suite du projet pour en avoir les réponses.
 
-### Structure du projet !!!!!
+### Structure du projet
+Le projet est structuré comme suit :
+- **`VintedScrapping.ipynb`** est le notebook responsables du scrapping des données
+- **`Revenus et votes.ipynb`** est le notebook responsables de la collecte des données non scrappées et de l'agrégation de toutes données
+- **`Visualisation.ipynb`** est le notebook responsable de la visualisation
+- **`Modélisation.ipynb`** est le notebook responsable de la modélisation
+- **`Bases de données`** correspond au dossier de bases de données utilisées et créées au long du projet
+
+[!TIP]
+Faire tourner les notebooks dans le même ordre que les étapes
 
 ## Étape 1 : Récolte de données en scrappant le site [Vinted.fr](https://www.vinted.fr/)
 Le scrapping des données est réalisé dans le notebook **`VintedScrapping.ipynb`**.
