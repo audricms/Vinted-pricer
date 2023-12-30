@@ -161,9 +161,9 @@ On obtient finalement le dataframe _"donnéesjointes.csv"_
 ## Étape 3 bis : Visualisation 
 À la suite du travail d'agrégation de données dans un dataframe, nous avons souhaité visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinait. 
 Nous avons d'abord cherché à exprimer le prix moyen des jeans hommes par département en fonction du pourcentage de votes pour un des partis écologistes (la NUPES, les Ecologistes). 
-Pour ce faire, nous avons d'abord traité la colonne '%popent'grâce à la fonction round2 qui qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
-Nous avons ensuite trié le DataFrame en fonction de cette colonne grâce à la commande sort_values qui met ses valeurs dans l'ordre croissant. Cela est nécessaire pour que le graphique en barres soit bien ordonné. 
-Enfin, nous avons créé un graphique en barres avec Matplotlib grâce à la commande plot et en utilisant les valeurs de '%popent' sur l'axe des x et les valeurs des prix moyens sur l'axe des y.
+Pour ce faire, nous avons d'abord traité la colonne '%popent'grâce à la fonction `round2` qui qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
+Nous avons ensuite trié le DataFrame en fonction de cette colonne grâce à la commande `sort_values` qui met ses valeurs dans l'ordre croissant. Cela est nécessaire pour que le graphique en barres soit bien ordonné. 
+Enfin, nous avons créé un graphique en barres avec `Matplotlib` grâce à la commande `plot` et en utilisant les valeurs de '%popent' sur l'axe des x et les valeurs des prix moyens sur l'axe des y.
 
 On obtient l'histogramme suivant :
 <img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
