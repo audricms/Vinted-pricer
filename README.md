@@ -2,7 +2,7 @@
 
 *Ce projet est réalisé dans le cadre du cours de Python pour la Data Science de Lino Galiana par Audric Sicard et Eva-Andrée Tiomo.*
 
-** L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales.**
+**L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales.**
 
 ## Introduction et motivations pour ce projet
 
@@ -89,6 +89,7 @@ Le dictionnaire nettoyé est ensuite convertit en `DataFrame` puis gardé en mé
 
 ## Étape 2 : Collecte de données sur les revenus et la coloration écologiste par commune en France métropolitaine
 
+La collecte et la mise en forme de ces données de revenus et de coloration écologiste, comme leur aggrégation avec les données scrappées sont réalisées dans le notebook **`Revenus et votes.ipynb`**.
 
 ### Données sur les revenus par commune
 
@@ -100,38 +101,24 @@ A partir de cette base de données, nous créons un petit `DataFrame`, `dfrevdep
 ### Données sur la coloration écologiste par commune
 
 Nous importons une base de données `votes.csv` trouvée sur [data-gouv](https://www.data.gouv.fr/fr/) qui détaille les résultats de votes des élections législatives de 2022 par département. Pour déterminer la coloration écologiste des départements, nous nous concentrons sur les votes pour le parti écologiste et pour la Nouvelle Union Populaire Ecologique et Sociale. Deux suppositions sont faites, voter pour l'un de ces deux partis c'est être plus sensible aux questions environnementales, et les résultats de votes à l'échelle du département reflètent ceux à l'échelle des communes. Une piste d'amélioration serait alors de pousser l'étude de la coloration écologiste par commune en prenant par exemple en compte des sondages d'opinion, ou en étudiant les votes par commune.
+Pour créer un `DataFrame`, en l'occurrence `dféconupes`, avec les données voulues, nous commençons par supprimer en amont (sur la base de données téléchargée en local) les colonnes vides ou inutiles pour la suite de nos recherches, par exemple celle correspondant au taux d'abstention. Nous renommons les colonnes en amont pour une meilleure compréhension. Notamment, %popent<sub>i</sub> correspond au pourcentage de la population totale en âge de voter qui a voté pour un parti<sub>i</sub>. %popvot<sub>i</sub> correspond au pourcentage de la population votante qui a voté pour un parti<sub>i</sub>. Nous importons ensuite la base de données et en extrayons les votes pour le parti écologiste puis pour la NUPES par département. Pour cela, il a fallu extraire les données de votes, réparties dans des colonnes différentes dans la base de données, dans plusieurs `DataFrame`, avant de les concaténer pour créer respectivement `dféco` et `dfnupes`. Puis nous additionnons les votes pour ces deux partis dans le `DataFrame` `dféconupes`.
+
+De même, nous créons une carte pour mieux visualiser la coloration écologiste par département.
+
+<img width="1013" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/ebfffb18-fc3e-48b7-96ea-5c5dfdcf8067">
+
+### Aggrégation des bases de données
+
+Pour mener l'étape de visualisation de nos données et de modélisation, nous joignons nos bases de données sur les annonces de jeans pour les hommes, sur les revenus par département et la coloration écologiste par département.
+Avant la première jointure
+
+Pour cela nous, lions chaque ville d'annonce de vente avec un son département par un `join` sur le noms des villes, formant le `DataFrame` `df3`. Puis nous y joignons le revenu moyen par département et les données de votes par deux `join` sur le code postal des départements.
+Avant le premier 
+
+Nous nettoyons ensuite `df3` en supprimant 
 
 
-**I. Travail sur la base de données revenus**
 
-
-Après avoir eu une idée globale, nous avons associé les villes à leur département pour passer à l'étape suivante : associer les votes écologiques aux villes.
-
-**II. Travail sur la base de données des votes**
-
-Nous avons obtenu sur le site data-gouv, une base de données détaillant les résultats de votes des législatives 2022 par département. Nous nous sommes concentrés sur les votes pour les écologistes ('ECO') et la Nouvelle union populaire écologique et sociale (NUP).
-
-**Hypothèses :**
-
- - On suppose qu'une personne votant pour l'un des deux partis cités précédemment est plus sensible aux problématiques écologiques.
- - On suppose que le vote départemental est représentatif de la pensée par commune (ie si 20% du département vote Écologiste ou NUPES, on suppose que 20% de la ville étudiée appartenant au département aura eu ce même comportement). 
-- On suppose qu'un département plus écologiques sera plus susceptible d'acheter des produits de seconde main (hypothèse qu'on testera à l'étape 3).
-
-**Méthodologie**
-
-_1. Nettoyage et filtration de la base de données_
-
- Nous avons téléchargé une base de données conséquente qui détaille par commune des informations sur le taux d'absentation mais précise aussi par département, le nomnbre de vote et les pourcentages pour chaque parti. Nous avons donc procédé de la manière suivante :
- 
- - Renommer les colonnes en amont pour comprendre les données clairement %popent<sub> </sub>i correspond au pourcentage de la population totale en âge de voter qui a voté pour un parti<sub> </sub>i. %popvot<sub> </sub>i correspond au pourcentage de la population votante qui a voté pour un parti<sub> </sub>i.
-
-- Supprimer les colonnes vides et les colonnes qui ne nous serviront pas dans la suite de l'analyse
-  
-- Sélectionner seulement le nombre de voix et les pourcentages pour le parti écologiste puis pour la NUPES. Comme les partis étaient dans la base de données dans différentes colonnes Parti1, Parti2, Parti3 et Parti4, il a fallu créer des dictionnaires intermédiaires avant de les concaténer et harmoniser les titres de colonnes.
-  
-_2. Compilation des votes pour avoir une idée des départements se souciant le plus de l'écologie_
-
-Après avoir obtenu les dataframes correspondant à chaque parti, nous avons compilé les votes des deux partis par département pour essayer de définir grâce aux votes, les départements avec plus ou moins une sensibilité accrue aux problématiques environnementales.
 
 ## Étape 3 : agrégation  des données et définition des objectifs
 Cette étape consiste simplement à agréger les sources de données entre elles. À ce stade, les données sont réparties en 3 dataframes que la phrase d'agrégation fusionne (`join`, `merge`, `set_index`) et nettoie (`rename`, `drop`). Ces 3 dataframes sont :
@@ -163,7 +150,7 @@ On obtient finalement le dataframe _"donnéesjointes.csv"_
 
 
 
-<img width="1013" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/ebfffb18-fc3e-48b7-96ea-5c5dfdcf8067">
+
 
 - On obtient ces deux premiers histogrammes :
 <img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
