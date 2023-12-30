@@ -2,28 +2,28 @@
 
 *Ce projet est réalisé dans le cadre du cours de Python pour la Data Science de Lino Galiana par Audric Sicard et Eva-Andrée Tiomo.*
 
-## L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales.
+** L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales.**
 
 ## Introduction et motivations pour ce projet
 
-Vinted.fr est un site qui connait un fort succès depuis quelques années. Il s'agit d'un marché en ligne communautaire qui permet de vendre, acheter et échanger des vêtements et accessoires d'occasion. Alors que la fast fashion est de plus en plus décriée pour des raisons sociales et écologiques, il nous paraissait intéressant de nous pencher sur une solution au problème telle que Vinted. Notre projet a tenté de répondre à quelques interrogations : 
+Vinted.fr est un site qui connait un fort succès depuis quelques années. Il s'agit d'un marché en ligne communautaire qui permet de vendre, acheter et échanger des vêtements et accessoires d'occasion. Alors que la fast fashion est de plus en plus décriée pour des raisons sociales et écologiques, il nous paraît intéressant de nous pencher sur une solution au problème telle que Vinted. Notre projet tente de répondre à quelques interrogations : 
 - Est-ce que les vêtements de seconde main sont plus chers selon la richesse de la commune de vente ?
 - Est-ce qu'il y a plus d'annonces de vente dans les zones géographiques qui votent proportionnellement plus pour les écologistes ?
   
 Nous vous laissons lire la suite du projet pour en avoir les réponses.
 
-## Structure du projet !!!!!
+### Structure du projet !!!!!
 
 ## Étape 1 : Récolte de données en scrappant le site Vinted.fr
 
-Le scrapping des données a été réalisé dans le notebook **`VintedScrapping.ipynb`**.
+Le scrapping des données est réalisé dans le notebook **`VintedScrapping.ipynb`**.
 
 ### Scrapping
-Le scrapper a été codé grâce au module `Selenium` qui fonctionne avec le browser **`Chronium`**, et le module `BeautifulSoup4`.
+Le scrapper est codé grâce au module `Selenium` qui fonctionne avec le browser **`Chronium`**, et le module `BeautifulSoup4`.
 Le scrapper se résume à deux fonctions majeures, `h_creator`, qui convertit une chaîne de caractères correspondant à la recherche de l'utilisateur, un prix minimum, un prix maximum et le numéro de la page d'annonces, en un lien vers la page adéquate, et `tableau`, qui à partir dudit lien retourne un `DataFrame` contenant les annonces et leurs caractéristiques liées à la recherche de l'utilisateur. 
 Le scrapper procède en ces deux étapes à la suite de difficultés rencontrées lors de l'automatisation du scrapping. Lors de la création automatisée, une erreur de concaténation entre une chaîne de caractère et un `WebElement` survenait. L'automatisation du scrapping est ainsi une première piste d'amélioration.
 
-Pour ce projet, nous avons décidé de scrapper les 20 premières pages d'annonces de vente de jeans hommes par des particuliers. En effet, il s'agit d'un produit dont la durabilité est connue, souvent acheté de seconde main, avec a priori une certaine variabilité de prix, et donc propice à nos recherches.
+Pour ce projet, nous décidons de scrapper les 20 premières pages d'annonces de vente de jeans hommes par des particuliers. En effet, il s'agit d'un produit dont la durabilité est connue, souvent acheté de seconde main, avec a priori une certaine variabilité de prix, et donc propice à nos recherches.
 Ainsi le scrapper se dirige dans un premier temps vers la page d'annonces demandée et garde en mémoire les liens url des annonces grâce à `Selenium`.
 
 <img width="1391" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/a8953e39-8d7b-4e48-8fde-ec2415654b11">
@@ -59,7 +59,7 @@ scrapping = {}
 
 Puis le scrapper s'appuie sur `BeautifulSoup4` pour accéder au code html desdites annonces et récolter les caractéristiques des annonces : prix, marque, taille, état, matière, localisation, option de paiement, nombre de vues et date d'ajout.
 
-Au départ nous souhaitions seulement utiliser le module `Selenium` mais avons rencontré un certain nombre de difficultés, notamment une incapacité d'accéder au code html des annonces dans son éntièreté. C'est pourquoi nous nou ssommes aussi aidé de `BeautifulSoup4`. La structure homogène du code html des annonces a ensuite permis une automatisation facilitée de la récolte. 
+Au départ nous souhaitions seulement utiliser le module `Selenium` mais rencontrions un certain nombre de difficultés, notamment une incapacité d'accéder au code html des annonces dans son éntièreté. C'est pourquoi nous nous sommes aussi aidés de `BeautifulSoup4`. La structure homogène du code html des annonces permet ensuite une automatisation facilitée de la récolte. Une piste d'amélioration serait alors de coder entièrement le scrapper avec `BeautifulSoup4`.
 
 Exemple de code pour accéder au code html d'une annonce et en extraire le prix s'il existe :
 
@@ -79,22 +79,31 @@ Exemple de code pour accéder au code html d'une annonce et en extraire le prix 
 
 ```
 
-Toutes les informations ont ainsi été gardées en mémoire dans un dictionnaire.
+Toutes les informations sont ainsi gardées en mémoire dans un dictionnaire.
 
 ### Nettoyage de la base de données scrappées
-Le nettoyage de la base de données concernait surtout les marques. Nous avons regroupé les marques similaires (par exemple Levi's et Levi Strauss & Co.) et assigné une valeur `nan` aux marques comme "je ne sais pas", "sans marque", etc.
+Le nettoyage de la base de données concerne surtout les marques. Nous regroupons les marques similaires (par exemple Levi's et Levi Strauss & Co.) et assignons une valeur `nan` aux marques comme "je ne sais pas", "sans marque", etc.
 
 ### Sortie du scrapper
 Le dictionnaire nettoyé est ensuite convertit en `DataFrame` puis gardé en mémoire sous forme de fichier csv **`jeanshomme.csv`** dans **`Bases de données`** pour être utilisé par la suite dans nos recherches.
 
-## Étape 2 : identification des villes de vente et étude de leurs revenus grâce à la base de données "revenus" ainsi que de leurs convictions écologiques grâce à la base de données "votes"
+## Étape 2 : Collecte de données sur les revenus et la coloration écologiste par commune en France métropolitaine
+
+
+### Données sur les revenus par commune
+
+Nous commençons par importer une base de données, `revenus.csv` qui donne le nom de la commune, son code postal, le revenu moyen annuel des habitants et le revenu moyen annuel des habitants à l'échelle du département en 2022. Cette base de données a été trouvée sur le site [data-gouv](https://www.data.gouv.fr/fr/).
+A partir de cette base de données, nous créons un petit `DataFrame`, `dfrevdep`, qui contient la liste des départements identifiés par leur code postal, et leur revenu moyen annuel. Pour une meilleur visualisation, nous créons une carte de cette répartition.
+
+<img width="1054" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/0ad7b85d-25b2-4aa4-9ac3-08f8dead1dc1">
+
+### Données sur la coloration écologiste par commune
+
+Nous importons une base de données `votes.csv` trouvée sur [data-gouv](https://www.data.gouv.fr/fr/) qui détaille les résultats de votes des élections législatives de 2022 par département. Pour déterminer la coloration écologiste des départements, nous nous concentrons sur les votes pour le parti écologiste et pour la Nouvelle Union Populaire Ecologique et Sociale. Deux suppositions sont faites, voter pour l'un de ces deux partis c'est être plus sensible aux questions environnementales, et les résultats de votes à l'échelle du département reflètent ceux à l'échelle des communes. Une piste d'amélioration serait alors de pousser l'étude de la coloration écologiste par commune en prenant par exemple en compte des sondages d'opinion, ou en étudiant les votes par commune.
+
 
 **I. Travail sur la base de données revenus**
 
-Nous commençons par importer une base de données qui donne le nom de la commune, son code postal, le revenu moyen annuel des habitants et le revenu moyen annuel des habitants à l'échelle du département. Cette base de données a été trouvée sur le site data-gouv. 
-
-Nous avons ensuite harmonisé les noms de colonnes et créé un petit dataframe comprenant une colonne "Département" et une colonne donnant le revenu moyen annuel par département associé.
-Afin de visualiser plus clairement la répartition des revenus, nous avons utilisé le dataframe précédent pour obtenir une carte de la France indiquant les revenus par département.
 
 Après avoir eu une idée globale, nous avons associé les villes à leur département pour passer à l'étape suivante : associer les votes écologiques aux villes.
 
@@ -152,7 +161,7 @@ On obtient finalement le dataframe _"donnéesjointes.csv"_
 ## Étape 4 : affichage synthétisé des résultats et conclusions
 - Nous avons obtenu les deux cartes suivantes :
 
-<img width="1054" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/0ad7b85d-25b2-4aa4-9ac3-08f8dead1dc1">
+
 
 <img width="1013" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/ebfffb18-fc3e-48b7-96ea-5c5dfdcf8067">
 
