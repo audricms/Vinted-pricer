@@ -19,8 +19,7 @@ Le projet est structuré comme suit :
 - **`Modélisation.ipynb`** est le notebook responsable de la modélisation
 - **`Bases de données`** correspond au dossier de bases de données utilisées et créées au long du projet
 
-[!TIP]
-Faire tourner les notebooks dans le même ordre que les étapes
+[!TIP Faire tourner les notebooks dans le même ordre que les étapes]
 
 ## Étape 1 : Récolte de données en scrappant le site [Vinted.fr](https://www.vinted.fr/)
 Le scrapping des données est réalisé dans le notebook **`VintedScrapping.ipynb`**.
