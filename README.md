@@ -1,6 +1,6 @@
 # Projet Python 2A
 
-Projet Python de deuxième année pour le cours Python pour la Data Science réalisé par Audric Sicard et Eva-Andrée TIOMO.
+Projet Python de deuxième année pour le cours Python pour la Data Science réalisé par Audric Sicard et Eva-Andrée Tiomo.
 
 ## L'objectif de ce projet est d'observer les prix d'articles sur Vinted et étudier la corrélation de ces prix avec le niveau de revenus de la ville de vente ainsi que ses convictions écologiques globales.
 
