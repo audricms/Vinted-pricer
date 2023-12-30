@@ -172,6 +172,7 @@ reg.score(X_test, Y_test)
 ### Visualisation des coefficients des variables expicatives de la première régression linéaire
 Pour prendre connaissance des variables explicatives significatives (du point de vue de la prédiction), nous visualisons les coefficients de celles-ci dans la régression linéaire préalablement calculée.
 
+<img width="665" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/9e625f96-51b0-4e0f-a17b-fa8080f98d85">
 
 
 Les variables de taille, en particulier 5XL et M semble être les plus significatives. L'une par sa rareté et l'autre son abondance sûrement. Aussi, le revenu par commune semble également significatif. L'état "Neuf avec étiquette" semble également significatif. Le résultat des votes est également moyennement significatif
@@ -181,6 +182,7 @@ Par manque de données, nous soupçonnons que les variables de taille surentraî
 
 Aussi, nous visualisons les coefficients des variables explicatives de cette seconde régression sous la forme d'un barplot.
 
+<img width="619" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/0e59cec7-b7b1-4150-ab28-6ba6a0f4064c">
 
 
 On remarque que les coefficients sont relativement inchangés en termes d'importance relative.
