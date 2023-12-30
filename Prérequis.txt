@@ -2,7 +2,7 @@ Prérequis et organisation
 
 Ce document rappelle les différentes étapes de notre démarche, la structure de notre repository git ainsi que les prérequis. 
 
-L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales. Pour mener à bien cette étude, ce projet est divisé en 4 étapes associées respectivement à un notebook :  
+L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales. Pour mener à bien cette étude, ce projet est divisé en 4 étapes chassociées respectivement à un notebook :  
 
 1.	La récolte de données en scrappant le site Vinted.fr (VintedScrapping.ipynb)
 2.	La collecte de données sur les revenus et la coloration écologiste par commune en France métropolitaine (Revenus et votes.ipynb)
