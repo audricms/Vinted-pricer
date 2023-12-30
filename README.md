@@ -2,7 +2,7 @@
 
 *Ce projet est réalisé dans le cadre du cours de Python pour la Data Science de Lino Galiana par Audric Sicard et Eva-Andrée Tiomo.*
 
-** L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales.**
+**L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales.**
 
 ## Introduction et motivations pour ce projet
 
@@ -158,10 +158,19 @@ On obtient finalement le dataframe _"donnéesjointes.csv"_
 - Faire des régressions linéaires pour répondre à nos interrogations initiales
 - Conclure
 
+## Étape 3 bis : Visualisation 
+À la suite du travail d'agrégation de données dans un dataframe, nous avons souhaité visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinait. 
+Nous avons d'abord cherché à exprimer le prix moyen des jeans hommes par département en fonction du pourcentage de votes pour un des partis écologistes (la NUPES, les Ecologistes). 
+Pour ce faire, nous avons d'abord traité la colonne '%popent'grâce à la fonction round2 qui qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
+Nous avons ensuite trié le DataFrame en fonction de cette colonne grâce à la commande sort_values qui met ses valeurs dans l'ordre croissant. Cela est nécessaire pour que le graphique en barres soit bien ordonné. 
+Enfin, nous avons créé un graphique en barres avec Matplotlib grâce à la commande plot et en utilisant les valeurs de '%popent' sur l'axe des x et les valeurs des prix moyens sur l'axe des y.
+
+On obtient l'histogramme suivant :
+<img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
+
+
 ## Étape 4 : affichage synthétisé des résultats et conclusions
 - Nous avons obtenu les deux cartes suivantes :
-
-
 
 <img width="1013" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/ebfffb18-fc3e-48b7-96ea-5c5dfdcf8067">
 
