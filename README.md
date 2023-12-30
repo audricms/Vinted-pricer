@@ -67,4 +67,22 @@ On peut alors nettoyer le nom des marques, par exemple en regroupant les jeans d
 On obtient grâce au dernier nettoyage et la création du dictionnaire globale, un gros dictionnaire qui nous servira de base de travail pour croiser les données socio-démographiques qu'on considère en plus par la suite.
 On le retrouve en entier dans le document csv "jeanshomme.csv"
 
-## Étape 2 : identification des villes de vente et étude
+## Étape 2 : identification des villes de vente et étude de leurs revenus grâce à la base de données "revenus" ainsi qu'étude de leurs convictions écologiques grâce à la base de données "votes"
+
+**I. Travail sur la base de données revenus**
+Nous commençons par importer une base de données qui donne le nom de la commune, son code postal, le revenu moyen annuel des habitants et le revenu moyen annuel des habitants à l'échelle du département. Cette base de données a été trouvée sur le site data-gouv. 
+
+Nous avons ensuite harmonisé les noms de colonnes et créé un petit dataframe comprenant une colonne "Département" et une colonne donnant le revenu moyen annuel par département associé.
+Afin de visualiser plus clairement la répartition des revenus, nous avons utilisé le dataframe précédent pour obtenir une carte de la France indiquant les revenus par département.
+
+Après avoir eu une idée globale, nous avons associé les villes à leur département pour passer à l'étape suivante : associer les votes écologiques aux villes.
+
+**II. Travail sur la base de données des votes**
+Nous avons obtenus sur le site data-gouv, une base de données détaillant les résultats de votes des législatives 2022 par département. Nous nous sommes concentrés sur les votes pour les écologistes ('ECO') et la Nouvelle union populaire écologique et sociale (NUP).
+
+**Hypothèses et méthodologie :**
+
+
+Finalement, nous retournons l'estimation d'émission carbone d'un produit à partir de celle du produit de la base Agribalyse qui lui correspond le mieux.
+
+
