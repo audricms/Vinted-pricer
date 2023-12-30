@@ -84,30 +84,49 @@ Nous avons obtenu sur le site data-gouv, une base de données détaillant les r�
 
 **Hypothèses :**
 
- _ On suppose qu'une personne votant pour l'un des deux partis cités précédemment est plus touché par les problématiques écologiques
- _ On suppose que le vote départemental est représentatif de la pensée par commune (ie si 20% du département vote Écologiste ou NUPES, on suppose que 20% de la ville étudiée appartenant au département aura eu ce même comportement). 
- _ On suppose qu'un département plus écologiques sera plus susceptible d'acheter des produits de seconde main (hypothèse qu'on testera à l'étape 3).
+ - On suppose qu'une personne votant pour l'un des deux partis cités précédemment est plus sensible aux problématiques écologiques
+ - On suppose que le vote départemental est représentatif de la pensée par commune (ie si 20% du département vote Écologiste ou NUPES, on suppose que 20% de la ville étudiée appartenant au département aura eu ce même comportement). 
+- On suppose qu'un département plus écologiques sera plus susceptible d'acheter des produits de seconde main (hypothèse qu'on testera à l'étape 3).
 
 **Méthodologie**
 
 _1. Nettoyage et filtration de la base de données_
+
  Nous avons téléchargé une base de données conséquente qui détaille par commune des informations sur le taux d'absentation mais précise aussi par département, le nomnbre de vote et les pourcentages pour chaque parti. Nous avons donc procédé de la manière suivante :
- _ Renommer les colonnes en amont pour comprendre les données clairement %popent<sub> </sub>i correspond au pourcentage de la population totale en âge de voter qui a voté pour un parti<sub> </sub>i. %popvot<sub> </sub>i correspond au pourcentage de la population votante qui a voté pour un parti<sub> </sub>i.
-_Supprimer les colonnes vides et les colonnes qui ne nous serviront pas dans la suite de l'analyse
-_Sélectionner seulement le nombre de voix et les pourcentages pour le parti écologiste puis pour la NUPES. Comme les partis étaient dans la base de données dans différentes colonnes Parti1, Parti2, Parti3 et Parti4, il a fallu créer des dictionnaires intermédiaires avant de les concaténer et harmoniser les titres de colonnes.
+ 
+ - Renommer les colonnes en amont pour comprendre les données clairement %popent<sub> </sub>i correspond au pourcentage de la population totale en âge de voter qui a voté pour un parti<sub> </sub>i. %popvot<sub> </sub>i correspond au pourcentage de la population votante qui a voté pour un parti<sub> </sub>i.
+
+- Supprimer les colonnes vides et les colonnes qui ne nous serviront pas dans la suite de l'analyse
+  
+- Sélectionner seulement le nombre de voix et les pourcentages pour le parti écologiste puis pour la NUPES. Comme les partis étaient dans la base de données dans différentes colonnes Parti1, Parti2, Parti3 et Parti4, il a fallu créer des dictionnaires intermédiaires avant de les concaténer et harmoniser les titres de colonnes.
+  
 _2. Compilation des votes pour avoir une idée des départements se souciant le plus de l'écologie_
+
 Après avoir obtenu les dataframes correspondant à chaque parti, nous avons compilé les votes des deux partis par département pour essayer de définir grâce aux votes, les départements avec plus ou moins une sensibilité accrue aux problématiques environnementales.
 
-## Étape 3 : agrégation  des données et analyses
-Cette étape consiste simplement à agréger les sources de données entre elles. À ce stade, les données sont réparties en 3 dataframes que la phrase d'agrégation fusionne (join, merge) et nettoie (rename, drop). Ces 3 dataframes sont :
+## Étape 3 : agrégation  des données et définition des objectifs
+Cette étape consiste simplement à agréger les sources de données entre elles. À ce stade, les données sont réparties en 3 dataframes que la phrase d'agrégation fusionne (`join`, `merge`, `set_index`) et nettoie (`rename`, `drop`). Ces 3 dataframes sont :
 
-jeanshomme : c'est le dataframe obtenu à la fin de notre scrapping du site Vinted (voir étape 1).
+`jeanshomme` : c'est le dataframe obtenu à la fin de notre scrapping du site Vinted (voir étape 1).
 
-revenus : c'est le dataframe obtenu à l'import des données de data-gouv sur les revenus par commune et département et après nettoyage (voir étape 2-I).
+`revenus` : c'est le dataframe obtenu à l'import des données de data-gouv sur les revenus par commune et département et après nettoyage (voir étape 2-I).
 
-votes : c'est le dataframe obtenu à l'import des données de data-gouv sur les votes par département et après nettoyage (étape 2-II)
+`votes` : c'est le dataframe obtenu à l'import des données de data-gouv sur les votes par département et après nettoyage (étape 2-II)
 
-L'idée est de comparer les deux cartes et voir si on peut observer des tendances similaires ou divergentes entre vote écologique et revenus.
+Exemple de manipulation pour obtenir notre dataframe final : 
 
+```
+df3['Prix (€)'] = df3['Prix (€)'].apply(lambda x: x.replace(',', '.'))
+df3['Prix (€)'] = pd.to_numeric(df3['Prix (€)'])
+df3 = df3.join(dféconupes.set_index('Code du département'), on = 'Département', how = 'left')
 
+```
+On obtient finalement le dataframe _"donnéesjointes.csv"_
 
+### Définition des objectifs et des méthodes à partir de ce nouveau dataframe complet
+
+- Comparer les deux cartes et voir si on peut observer des tendances similaires ou divergentes entre vote écologique et revenus sur selon les départements
+- faire des régressions linéaires pour répondre à nos interrogations initiales
+- Conclure
+
+## Étape 4 : affichage synthétisé des résultats et conclusions
