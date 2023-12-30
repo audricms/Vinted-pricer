@@ -139,6 +139,9 @@ On obtient finalement le dataframe _"donnéesjointes.csv"_
 - Conclure
 
 ## Étape 4 : affichage synthétisé des résultats et conclusions
+- Nous avons obtenu les deux cartes suivantes :
+
+<img width="1054" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/0ad7b85d-25b2-4aa4-9ac3-08f8dead1dc1">
 
 - On obtient ces deux premiers histogrammes :
 <img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
