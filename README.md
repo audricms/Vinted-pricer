@@ -153,4 +153,9 @@ On obtient finalement le dataframe _"donnéesjointes.csv"_
 
 Pour aller plus loin, on effectue deux régressions linéaires pour tester nos hypothèses sur le produit sélectionné. 
 1. Une régression linéaire du prix sur plusieurs variables dont le niveau de vie de la commune, sa sensibilité écologique et la taille du vêtement.
+
+<img width="690" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/ebdde553-6119-4dc9-91b4-596199b40791">
+
 2. Une régression linéaire linéaire du prix sur moins de variables mais qui comprend toujours le niveau de vie de la commune et sa sensibilité écologique.
+
+<img width="587" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/05016a3c-a17a-419e-993f-19885d995dba">
