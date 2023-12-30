@@ -70,6 +70,7 @@ On le retrouve en entier dans le document csv "jeanshomme.csv"
 ## Étape 2 : identification des villes de vente et étude de leurs revenus grâce à la base de données "revenus" ainsi qu'étude de leurs convictions écologiques grâce à la base de données "votes"
 
 **I. Travail sur la base de données revenus**
+
 Nous commençons par importer une base de données qui donne le nom de la commune, son code postal, le revenu moyen annuel des habitants et le revenu moyen annuel des habitants à l'échelle du département. Cette base de données a été trouvée sur le site data-gouv. 
 
 Nous avons ensuite harmonisé les noms de colonnes et créé un petit dataframe comprenant une colonne "Département" et une colonne donnant le revenu moyen annuel par département associé.
@@ -78,11 +79,35 @@ Afin de visualiser plus clairement la répartition des revenus, nous avons utili
 Après avoir eu une idée globale, nous avons associé les villes à leur département pour passer à l'étape suivante : associer les votes écologiques aux villes.
 
 **II. Travail sur la base de données des votes**
-Nous avons obtenus sur le site data-gouv, une base de données détaillant les résultats de votes des législatives 2022 par département. Nous nous sommes concentrés sur les votes pour les écologistes ('ECO') et la Nouvelle union populaire écologique et sociale (NUP).
 
-**Hypothèses et méthodologie :**
+Nous avons obtenu sur le site data-gouv, une base de données détaillant les résultats de votes des législatives 2022 par département. Nous nous sommes concentrés sur les votes pour les écologistes ('ECO') et la Nouvelle union populaire écologique et sociale (NUP).
 
+**Hypothèses :**
 
-Finalement, nous retournons l'estimation d'émission carbone d'un produit à partir de celle du produit de la base Agribalyse qui lui correspond le mieux.
+ _ On suppose qu'une personne votant pour l'un des deux partis cités précédemment est plus touché par les problématiques écologiques
+ _ On suppose que le vote départemental est représentatif de la pensée par commune (ie si 20% du département vote Écologiste ou NUPES, on suppose que 20% de la ville étudiée appartenant au département aura eu ce même comportement). 
+ _ On suppose qu'un département plus écologiques sera plus susceptible d'acheter des produits de seconde main (hypothèse qu'on testera à l'étape 3).
+
+**Méthodologie**
+
+_1. Nettoyage et filtration de la base de données_
+ Nous avons téléchargé une base de données conséquente qui détaille par commune des informations sur le taux d'absentation mais précise aussi par département, le nomnbre de vote et les pourcentages pour chaque parti. Nous avons donc procédé de la manière suivante :
+ _ Renommer les colonnes en amont pour comprendre les données clairement %popent<sub> </sub>i correspond au pourcentage de la population totale en âge de voter qui a voté pour un parti<sub> </sub>i. %popvot<sub> </sub>i correspond au pourcentage de la population votante qui a voté pour un parti<sub> </sub>i.
+_Supprimer les colonnes vides et les colonnes qui ne nous serviront pas dans la suite de l'analyse
+_Sélectionner seulement le nombre de voix et les pourcentages pour le parti écologiste puis pour la NUPES. Comme les partis étaient dans la base de données dans différentes colonnes Parti1, Parti2, Parti3 et Parti4, il a fallu créer des dictionnaires intermédiaires avant de les concaténer et harmoniser les titres de colonnes.
+_2. Compilation des votes pour avoir une idée des départements se souciant le plus de l'écologie_
+Après avoir obtenu les dataframes correspondant à chaque parti, nous avons compilé les votes des deux partis par département pour essayer de définir grâce aux votes, les départements avec plus ou moins une sensibilité accrue aux problématiques environnementales.
+
+## Étape 3 : agrégation  des données et analyses
+Cette étape consiste simplement à agréger les sources de données entre elles. À ce stade, les données sont réparties en 3 dataframes que la phrase d'agrégation fusionne (join, merge) et nettoie (rename, drop). Ces 3 dataframes sont :
+
+jeanshomme : c'est le dataframe obtenu à la fin de notre scrapping du site Vinted (voir étape 1).
+
+revenus : c'est le dataframe obtenu à l'import des données de data-gouv sur les revenus par commune et département et après nettoyage (voir étape 2-I).
+
+votes : c'est le dataframe obtenu à l'import des données de data-gouv sur les votes par département et après nettoyage (étape 2-II)
+
+L'idée est de comparer les deux cartes et voir si on peut observer des tendances similaires ou divergentes entre vote écologique et revenus.
+
 
 
