@@ -2,13 +2,15 @@
 
 Projet Python de deuxième année pour le cours Python pour la Data Science réalisé par Audric Sicard et Eva-Andrée TIOMO.
 
-## L'objectif de ce projet est d'observer les prix d'articles sur Vinted et étudier la corrélation de ces prix avec la ville de vente et les convictions écologiques globales de cette dernière.
+## L'objectif de ce projet est d'observer les prix d'articles sur Vinted et étudier la corrélation de ces prix avec le niveau de revenus de la ville de vente ainsi que ses convictions écologiques globales.
 
 ## Introduction et motivations pour ce projet
 
 Vinted est un site qui connait un fort succès depuis quelques années. Il s'agit d'un marché en ligne communautaire qui permet de vendre, acheter et échanger des vêtements et accessoires d'occasion. Alors que la fast fashion est de plus en plus décriée pour des raisons sociales et écologiques, il nous paraissait intéressant de nous pencher sur une solution au problème telle que Vinted. Notre projet a tenté de répondre à quelques interrogations : 
 - Est-ce que les vêtements de seconde main sont plus chers selon la richesse de la commune de vente ?
 - Est-ce que dans les régions qui votent le plus pour les écologistes il y a plus de ventes ?
+- Est-ce que dans les régions qui votent le plus pour les écologistes il y a plus de ventes ?
+  
 Nous vous laissons lire la suite du projet pour en avoir les réponses.
 
 ## Étape 1 : extraction de données en scrappant le Vinted
@@ -42,6 +44,7 @@ scrapping = {}
 ```
 
 Une fois que la structure du lien HTML correspondant à l'article est identifiée, on peut relever les informations mentionnées précédemment. 
+
 Exemple de code pour trouver le prix d'un article et le stocker dans la colonne prix :
 ```
 firstscrapping2={}
@@ -64,10 +67,10 @@ La dernière étape est la création d'un dictionnaire avec toutes ces informati
 On peut alors nettoyer le nom des marques, par exemple en regroupant les jeans de marque Levi Strauss & Co. et ceux de marque Levi's qui sont en réalité de la même marque.
 
 ### Sortie du scrapper
-On obtient grâce au dernier nettoyage et la création du dictionnaire globale, un gros dictionnaire qui nous servira de base de travail pour croiser les données socio-démographiques qu'on considère en plus par la suite.
+On obtient grâce au dernier nettoyage et la création du dictionnaire global, un gros dictionnaire qui nous servira de base de travail pour croiser les données socio-démographiques qu'on considère en plus par la suite.
 On le retrouve en entier dans le document csv "jeanshomme.csv"
 
-## Étape 2 : identification des villes de vente et étude de leurs revenus grâce à la base de données "revenus" ainsi qu'étude de leurs convictions écologiques grâce à la base de données "votes"
+## Étape 2 : identification des villes de vente et étude de leurs revenus grâce à la base de données "revenus" ainsi que de leurs convictions écologiques grâce à la base de données "votes"
 
 **I. Travail sur la base de données revenus**
 
@@ -84,7 +87,7 @@ Nous avons obtenu sur le site data-gouv, une base de données détaillant les r�
 
 **Hypothèses :**
 
- - On suppose qu'une personne votant pour l'un des deux partis cités précédemment est plus sensible aux problématiques écologiques
+ - On suppose qu'une personne votant pour l'un des deux partis cités précédemment est plus sensible aux problématiques écologiques.
  - On suppose que le vote départemental est représentatif de la pensée par commune (ie si 20% du département vote Écologiste ou NUPES, on suppose que 20% de la ville étudiée appartenant au département aura eu ce même comportement). 
 - On suppose qu'un département plus écologiques sera plus susceptible d'acheter des produits de seconde main (hypothèse qu'on testera à l'étape 3).
 
@@ -126,7 +129,17 @@ On obtient finalement le dataframe _"donnéesjointes.csv"_
 ### Définition des objectifs et des méthodes à partir de ce nouveau dataframe complet
 
 - Comparer les deux cartes et voir si on peut observer des tendances similaires ou divergentes entre vote écologique et revenus sur selon les départements
-- faire des régressions linéaires pour répondre à nos interrogations initiales
+- Faire des régressions linéaires pour répondre à nos interrogations initiales
 - Conclure
 
 ## Étape 4 : affichage synthétisé des résultats et conclusions
+
+- On obtient ces deux premiers histogrammes :
+<img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
+
+
+<img width="603" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/78cd1694-1457-4927-8fb8-1d405e69e412">
+
+Pour aller plus loin, on effectue deux régressions linéaires pour tester nos hypothèses sur le produit sélectionné. 
+1. Une régression linéaire du prix sur plusieurs variables dont le niveau de vie de la commune, sa sensibilité écologique et la taille du vêtement.
+2. Une régression linéaire linéaire du prix sur moins de variables mais qui comprend toujours le niveau de vie de la commune et sa sensibilité écologique.
