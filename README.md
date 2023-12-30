@@ -172,7 +172,12 @@ On obtient l'histogramme suivant :
 
 Par la suite, nous avons souhaité observer le nombre d'annonces de jeans hommes par département en fonction du pourcentage de votes pour des partis écologistes. Notre objectif était de valider ou réfuter l'hypothèse selon laquelle un département plus écologique sera plus susceptible d'effectuer des transactions de produits de seconde main. 
 
-Pour ce faire, nous avons repris `dfdesc` ainsi que le raisonnement précédent. Nous avons simpo
+Pour ce faire, nous avons repris `dfdesc` ainsi que le raisonnement précédent. Nous avons simplement changé l'axe des ordonnées pour y mettre le nombre d'annonces. 
+
+On obtient l'histogramme suivant : 
+
+<img width="603" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/78cd1694-1457-4927-8fb8-1d405e69e412">
+
 
 ## Étape 4 : affichage synthétisé des résultats et conclusions
 - Nous avons obtenu les deux cartes suivantes :
