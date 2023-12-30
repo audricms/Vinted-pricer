@@ -1,26 +1,34 @@
 # Projet Python 2A
 
-Projet Python de deuxième année pour le cours Python pour la Data Science réalisé par Audric Sicard et Eva-Andrée Tiomo.
+*Ce projet est réalisé dans le cadre du cours de Python pour la Data Science de Lino Galiana par Audric Sicard et Eva-Andrée Tiomo.*
 
-## L'objectif de ce projet est d'observer les prix d'articles sur Vinted et étudier la corrélation de ces prix avec le niveau de revenus de la ville de vente ainsi que ses convictions écologiques globales.
+## L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales.
 
 ## Introduction et motivations pour ce projet
 
-Vinted est un site qui connait un fort succès depuis quelques années. Il s'agit d'un marché en ligne communautaire qui permet de vendre, acheter et échanger des vêtements et accessoires d'occasion. Alors que la fast fashion est de plus en plus décriée pour des raisons sociales et écologiques, il nous paraissait intéressant de nous pencher sur une solution au problème telle que Vinted. Notre projet a tenté de répondre à quelques interrogations : 
+Vinted.fr est un site qui connait un fort succès depuis quelques années. Il s'agit d'un marché en ligne communautaire qui permet de vendre, acheter et échanger des vêtements et accessoires d'occasion. Alors que la fast fashion est de plus en plus décriée pour des raisons sociales et écologiques, il nous paraissait intéressant de nous pencher sur une solution au problème telle que Vinted. Notre projet a tenté de répondre à quelques interrogations : 
 - Est-ce que les vêtements de seconde main sont plus chers selon la richesse de la commune de vente ?
-- Est-ce que dans les régions qui votent le plus pour les écologistes il y a plus de ventes ?
-- Est-ce que dans les régions qui votent le plus pour les écologistes il y a plus de ventes ?
+- Est-ce qu'il y a plus d'annonces de vente dans les zones géographiques qui votent proportionnellement plus pour les écologistes ?
   
 Nous vous laissons lire la suite du projet pour en avoir les réponses.
 
-## Étape 1 : extraction de données en scrappant le site Vinted
-### Scrapping
-Le scrapper a été codé grâce au module selenium et fonctionne avec le browser Chronium.
+## Structure du projet !!!!!
 
-Le scrapper lance une recherche à partir des caractéristiques fournies par l'utilisateur sur le vêtement souhaité (exemple : tshirt noir homme ou encore jean homme), puis se dirige vers les résultats de recherches. Il accepte en amont les cookies s'ils existent.
+## Étape 1 : Récolte de données en scrappant le site Vinted.fr
+
+Le scrapping des données a été réalisé dans le notebook **`VintedScrapping.ipynb`**.
+
+### Scrapping
+Le scrapper a été codé grâce au module `Selenium` qui fonctionne avec le browser **`Chronium`**, et le module `BeautifulSoup4`.
+Le scrapper se résume à deux fonctions majeures, `h_creator`, qui convertit une chaîne de caractères correspondant à la recherche de l'utilisateur, un prix minimum, un prix maximum et le numéro de la page d'annonces, en un lien vers la page adéquate, et `tableau`, qui à partir dudit lien retourne un `DataFrame` contenant les annonces et leurs caractéristiques liées à la recherche de l'utilisateur. 
+Le scrapper procède en ces deux étapes à la suite de difficultés rencontrées lors de l'automatisation du scrapping. Lors de la création automatisée, une erreur de concaténation entre une chaîne de caractère et un `WebElement` survenait. L'automatisation du scrapping est ainsi une première piste d'amélioration.
+
+Pour ce projet, nous avons décidé de scrapper les 20 premières pages d'annonces de vente de jeans hommes par des particuliers. En effet, il s'agit d'un produit dont la durabilité est connue, souvent acheté de seconde main, avec a priori une certaine variabilité de prix, et donc propice à nos recherches.
+Ainsi le scrapper se dirige dans un premier temps vers la page d'annonces demandée et garde en mémoire les liens url des annonces grâce à `Selenium`.
+
 <img width="1391" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/a8953e39-8d7b-4e48-8fde-ec2415654b11">
 
-Le scrapper récupère ensuite tous les liens HTML des articles proposés à partir de la recherche de l'utilisateur. Pour ce faire, il utilise `BeautifulSoup` :
+Exemple de code pour récupérer les liens url des annonces des particuliers à partir de la page d'annonces :
 
 ```
 scrapping = {}
@@ -49,32 +57,35 @@ scrapping = {}
             scrapping2[i]={}
 ```
 
-Ensuite, à partir de chaque article, on relève les informations suivantes : prix, marque, taille, état, matière, localisation, option de paiement, nombre de vues et date d'ajout. Cependant selenium ne parvenait pas à obtenir les liens HTML de manière automatisée pour chacune de ces informations. Il a donc fallu identifier la structure des liens HTML (qui est plutôt homogène pour l'ensemble des articles) et obtenir le texte des liens. Une fois que la structure du lien HTML correspondant à l'article est identifiée, on peut relever les informations mentionnées précédemment. 
+Puis le scrapper s'appuie sur `BeautifulSoup4` pour accéder au code html desdites annonces et récolter les caractéristiques des annonces : prix, marque, taille, état, matière, localisation, option de paiement, nombre de vues et date d'ajout.
 
-Exemple de code pour trouver le prix d'un article et le stocker dans la colonne prix :
+Au départ nous souhaitions seulement utiliser le module `Selenium` mais avons rencontré un certain nombre de difficultés, notamment une incapacité d'accéder au code html des annonces dans son éntièreté. C'est pourquoi nous nou ssommes aussi aidé de `BeautifulSoup4`. La structure homogène du code html des annonces a ensuite permis une automatisation facilitée de la récolte. 
+
+Exemple de code pour accéder au code html d'une annonce et en extraire le prix s'il existe :
+
 ```
-firstscrapping2={}
-
-for i in firstscrapping.keys() :
-    try:
-        request_text = request.urlopen(firstscrapping[i]).read()
-        page = bs4.BeautifulSoup(request_text, "lxml")
-        firstscrapping2[i]={}
+    for i in scrapping.keys() :
+        time.sleep(1)
+        try:
+            request_text = request.urlopen(scrapping[i]).read()
+            page = bs4.BeautifulSoup(request_text, "lxml")
+            scrapping2[i]={}
     
-        prix = page.find('h1')
-        if prix != None :
-            firstscrapping2[i]['Prix (€)'] = prix.text[:-2]
-        else : 
-            firstscrapping2[i]['Prix (€)'] = float('nan')
-```
-La dernière étape est la création d'un dictionnaire avec toutes ces informations, pour tous les articles trouvés. Ce dictionnaire global est la concaténation de plusieurs dictionnaires correspondant chacun respectivement à une page.
+            prix = page.find('h1')
+            if prix != None :
+                scrapping2[i]['Prix (€)'] = prix.text[:-2]
+            else : 
+                scrapping2[i]['Prix (€)'] = float('nan')
 
-### Interprétation des caractéristiques
-On peut alors nettoyer le nom des marques, par exemple en regroupant les jeans de marque Levi Strauss & Co. et ceux de marque Levi's qui sont en réalité de la même marque.
+```
+
+Toutes les informations ont ainsi été gardées en mémoire dans un dictionnaire.
+
+### Nettoyage de la base de données scrappées
+Le nettoyage de la base de données concernait surtout les marques. Nous avons regroupé les marques similaires (par exemple Levi's et Levi Strauss & Co.) et assigné une valeur `nan` aux marques comme "je ne sais pas", "sans marque", etc.
 
 ### Sortie du scrapper
-On obtient grâce au dernier nettoyage et la création du dictionnaire global, un gros dictionnaire qui nous servira de base de travail pour croiser les données socio-démographiques qu'on considère en plus par la suite.
-On le retrouve en entier dans le document csv "jeanshomme.csv"
+Le dictionnaire nettoyé est ensuite convertit en `DataFrame` puis gardé en mémoire sous forme de fichier csv **`jeanshomme.csv`** dans **`Bases de données`** pour être utilisé par la suite dans nos recherches.
 
 ## Étape 2 : identification des villes de vente et étude de leurs revenus grâce à la base de données "revenus" ainsi que de leurs convictions écologiques grâce à la base de données "votes"
 
