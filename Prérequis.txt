@@ -1,0 +1,49 @@
+Prérequis et organisation
+
+Ce document rappelle les différentes étapes de notre démarche, la structure de notre repository git ainsi que les prérequis. 
+
+L'objectif de ce projet est d'observer les prix d'articles sur Vinted.fr et étudier leur corrélation avec leurs caractéristiques, le niveau de revenus de la ville de et ses convictions écologiques globales. Pour mener à bien cette étude, ce projet est divisé en 4 étapes associées respectivement à un notebook :  
+
+1.	La récolte de données en scrappant le site Vinted.fr (VintedScrapping.ipynb)
+2.	La collecte de données sur les revenus et la coloration écologiste par commune en France métropolitaine (Revenus et votes.ipynb)
+3.	La visualisation (Visualisation.ipynb)
+4.	La modélisation (Modélisation.ipynb)
+
+
+Modules et packages nécessaires à la lecture du code : 
+
+1.	Récolte des données via scrapping
+
+! pip install webdriver_manager
+! pip install selenium
+import time
+import pandas as pd
+import bs4
+import lxml
+import pandas
+import urllib
+
+2.	Collecte de données sur les revenus et les votes écologistes
+import matplotlib.pyplot as plt
+import pandas as pd
+import scipy.stats
+import numpy as np
+import geopandas as gpd
+! pip install --upgrade xlrd
+! pip install geopandas
+! pip install plotnine
+
+3.	Visualisation
+Rapport sur les données pandas :
+! pip install pandas_profiling
+! pip install ipywidgets
+
+4.	Modélisation
+import numpy as np
+from sklearn import preprocessing
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+import sklearn.metrics
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
