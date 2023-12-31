@@ -124,7 +124,7 @@ dfjointe = df3.join(dfrev, on='Localisation', how='left')
 ```
 
 ## Étape 3 bis : Visualisation 
-À la suite du travail d'agrégation de données dans un `Dataframe` nommé `df3`, nous avons souhaité visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinait. Nous avons alors introduit `dfdesc` qui regroupe grâce à la commande groupby `df3` et `dféconupes`.
+À la suite du travail d'agrégation de données dans un `Dataframe` nommé `df3`, nous avons souhaité visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinait. Nous avons alors introduit `dfdesc` qui regroupe `df3` et `dféconupes` grâce à la commande `groupby`.
 
 Nous avons d'abord cherché à exprimer le prix moyen des jeans hommes par département en fonction du pourcentage de votes pour un des partis écologistes (la NUPES, les Ecologistes). 
 Pour ce faire, nous avons d'abord traité la colonne '%popent'grâce à la fonction `round2` qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
@@ -136,7 +136,7 @@ On obtient l'histogramme suivant :
 <img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
 
 
-Par la suite, nous avons souhaité observer le nombre d'annonces de jeans hommes par département en fonction du pourcentage de votes pour des partis écologistes. Notre objectif était de valider ou réfuter l'hypothèse selon laquelle un département plus écologique sera plus susceptible d'effectuer des transactions de produits de seconde main. 
+Par la suite, nous avons souhaité observer le nombre d'annonces de jeans hommes par département en fonction du pourcentage de votes pour des partis écologistes. Notre objectif était de valider ou réfuter l'hypothèse selon laquelle un département plus écologique sera plus susceptible d'effectuer un nombre de transactions plus élevé de produits de seconde main. 
 
 Pour ce faire, nous avons repris `dfdesc` ainsi que le raisonnement précédent. Nous avons simplement changé l'axe des ordonnées pour y mettre le nombre d'annonces. 
 
@@ -145,7 +145,17 @@ On obtient l'histogramme suivant :
 <img width="603" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/78cd1694-1457-4927-8fb8-1d405e69e412">
 
 
+Enfin, nous nous sommes penchés sur le lien entre le revenu des départements et les prix des articles recherchés. Pour y parvenir, nous avons importé et nettoyé le petit DataFrame `revdep.csv` qui associe chaque département à son niveau de vie annuel moyen par foyer.
+On utilise la fonction tonum pour transformer les chaînes de caractères en nombres quand elles sont propices à cette transformation afin d'harmoniser les numéros de département. 
+On crée un DataFrame final qu'on nomme dfdesc2 et qui correspond à la fusion de dfdesc et dfdevrep grâce à la commande join.
+Finalement, on utilise la même méthode que pour les deux histogrammes précédents appliquée cette fois-ci à dfdesc2. 
 
+On obtient l'histogramme suivant : 
+<img width="641" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/e34b435f-fae9-47b2-8659-b85945a6dbb9">
+
+On remarque au vu des trois histogrammes obtenus, que nos hypothèses de corrélation entre prix, nombre de votes, revenus et idéologie environnementale sont remises en question. En effet, il semble que ces paramètres n'influent pas particulièrement les uns sur les autres.
+
+Ainsi, notre dernière partie a pour but d'observer les coefficients de corrélation de différentes variables dont celles mentionnées précédemment lorsqu'on effectue la régression linéaire du prix sur ces dernières. Nous chercherons à comprendre plus précisément les déterminants du prix.
 
 ## Etape 4 : Modélisation par régressions linéaires et interprétations
 La modélisation est réalisée dans le notebook `Modélisation.ipynb`. Il s'agit de modéliser le prix d'une annonce de jean pour homme en fonction de certaines de ces caractéristiques. Pour cela nous calculons deux régressions linéaires.
