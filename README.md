@@ -27,7 +27,7 @@ Le scrapping des données est réalisé dans le notebook **`VintedScrapping.ipyn
 ### Scrapping
 Le scrapper est codé grâce au module `Selenium` qui fonctionne avec le browser **`Chronium`**, et le module `BeautifulSoup4`.
 Le scrapper se résume à deux fonctions majeures, `h_creator`, qui convertit une chaîne de caractères correspondant à la recherche de l'utilisateur, un prix minimum, un prix maximum et le numéro de la page d'annonces, en un lien vers la page adéquate, et `tableau`, qui à partir dudit lien retourne un `DataFrame` contenant les annonces et leurs caractéristiques liées à la recherche de l'utilisateur. 
-Le scrapper procède en ces deux étapes à la suite de difficultés rencontrées lors de l'automatisation du scrapping. Lors de la création automatisée, une erreur de concaténation entre une chaîne de caractère et un `WebElement` survenait. L'automatisation du scrapping est ainsi une première piste d'amélioration.
+Le scrapper procède en ces deux étapes à la suite de difficultés rencontrées lors de l'automatisation du scrapping. Lors de la création automatisée de liens vers les pages d'annonces, une erreur de concaténation entre une chaîne de caractères et un `WebElement` survenait. L'automatisation du scrapping est ainsi une première piste d'amélioration.
 
 Pour ce projet, nous décidons de scrapper les 20 premières pages d'annonces de vente de jeans hommes par des particuliers. En effet, il s'agit d'un produit dont la durabilité est connue, souvent acheté de seconde main, avec a priori une certaine variabilité de prix, et donc propice à nos recherches.
 Ainsi le scrapper se dirige dans un premier temps vers la page d'annonces demandée et garde en mémoire les liens url des annonces grâce à `Selenium`.
@@ -144,7 +144,6 @@ On obtient l'histogramme suivant :
 
 <img width="603" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/78cd1694-1457-4927-8fb8-1d405e69e412">
 
-
 Enfin, nous nous sommes penchés sur le lien entre le revenu des départements et les prix des articles recherchés. Pour y parvenir, nous avons importé et nettoyé le petit DataFrame `revdep.csv` qui associe chaque département à son niveau de vie annuel moyen par foyer.
 On utilise la fonction tonum pour transformer les chaînes de caractères en nombres quand elles sont propices à cette transformation afin d'harmoniser les numéros de département. 
 On crée un DataFrame final qu'on nomme dfdesc2 et qui correspond à la fusion de dfdesc et dfdevrep grâce à la commande join.
@@ -156,8 +155,6 @@ On obtient l'histogramme suivant :
 On remarque au vu des trois histogrammes obtenus, que nos hypothèses de corrélation entre prix, nombre de votes, revenus et idéologie environnementale sont remises en question. En effet, il semble que ces paramètres n'influent pas particulièrement les uns sur les autres.
 
 Ainsi, notre dernière partie a pour but d'observer les coefficients de corrélation de différentes variables dont celles mentionnées précédemment lorsqu'on effectue la régression linéaire du prix sur ces dernières. Nous chercherons à comprendre plus précisément les déterminants du prix.
-
-
 
 ## Etape 4 : Modélisation par régressions linéaires et interprétations
 La modélisation est réalisée dans le notebook `Modélisation.ipynb`. Il s'agit de modéliser le prix d'une annonce de jean pour homme en fonction de certaines de ces caractéristiques. Pour cela nous calculons deux régressions linéaires.
@@ -201,3 +198,8 @@ On remarque que les coefficients sont relativement inchangés en termes d'import
 
 ### Pistes d'amélioration de la modélisation
 Il serait intéressante d'entraîner et de tester d'autres modèles. Le prix qui a priori aurait été une variable continue, est a en réalité plutôt discret. Il serait alors intéressant d'analyser les résultats de modèle de classification comme une forêt aléatoire.
+
+## Conclusion
+Bien que le projet présente un certain nombre de pistes d'amélioration mentionnées au long de celui-ci, nous pouvons en tirer quelques conclusions. 
+Le prix moyen par département des articles [Vinted.fr](https://www.vinted.fr/) ne semble pas être lié ni à sa coloration écologiste ni à son revenu moyen. Le nombre d'annonces par département non plus ne semble pas être corrélé à sa coloration écologiste.
+Nous sommes parvenus à des modèles faiblement prédictif du prix d'un article. Cependant ces derniers ont indiqué que la taille (et en particulier sa relative rareté), le revenu moyen par commune et la coloration écologiste (pouvant être liée au revenu) sont significatifs lors de la prédiction du prix d'un article.
