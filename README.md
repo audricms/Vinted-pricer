@@ -157,6 +157,8 @@ On remarque au vu des trois histogrammes obtenus, que nos hypothèses de corrél
 
 Ainsi, notre dernière partie a pour but d'observer les coefficients de corrélation de différentes variables dont celles mentionnées précédemment lorsqu'on effectue la régression linéaire du prix sur ces dernières. Nous chercherons à comprendre plus précisément les déterminants du prix.
 
+
+
 ## Etape 4 : Modélisation par régressions linéaires et interprétations
 La modélisation est réalisée dans le notebook `Modélisation.ipynb`. Il s'agit de modéliser le prix d'une annonce de jean pour homme en fonction de certaines de ces caractéristiques. Pour cela nous calculons deux régressions linéaires.
 
