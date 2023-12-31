@@ -189,3 +189,9 @@ On remarque que les coefficients sont relativement inchangés en termes d'import
 
 ### Pistes d'amélioration de la modélisation
 Il serait intéressante d'entraîner et de tester d'autres modèles. Le prix qui a priori aurait été une variable continue, est a en réalité plutôt discret. Il serait alors intéressant d'analyser les résultats de modèle de classification comme une forêt aléatoire.
+
+## Conclusion
+
+Bien que le projet présente un certain nombre de pistes d'amélioration mentionnées au long de celui-ci, nous pouvons en tirer quelques conclusions. 
+Le prix moyen par département des articles [Vinted.fr](https://www.vinted.fr/) ne semble pas être lié ni à sa coloration écologiste ni à son revenu moyen. Le nombre d'annonces par département non plus ne semble pas être corrélé à sa coloration écologiste.
+Nous sommes parvenus à des modèles faiblement prédictif du prix d'un article. Cependant ces derniers ont indiqué que la taille (et en particulier sa relative rareté), le revenu moyen par commune et la coloration écologiste (pouvant êtr
