@@ -127,7 +127,7 @@ dfjointe = df3.join(dfrev, on='Localisation', how='left')
 À la suite du travail d'agrégation de données dans un `Dataframe` nommé `df3`, nous souhaitons visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinne. Nous introduisons alors `dfdesc` qui regroupe `df3` et `dféconupes` grâce à la commande `groupby`.
 
 Nous cherchons d'abord à exprimer le prix moyen des jeans hommes par département en fonction du pourcentage de votes pour un des partis écologistes (la NUPES, les Ecologistes). 
-Pour ce faire, nous traitons d'abord la colonne '%popent'grâce à la fonction `round2` qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
+Pour ce faire, nous traitons d'abord la colonne '%popent' grâce à la fonction `round2` qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
 Nous trions ensuite le DataFrame en fonction de cette colonne grâce à la commande `sort_values` qui met ses valeurs dans l'ordre croissant. Cela est nécessaire pour que le graphique en barres soit bien ordonné. 
 Enfin, nous créons un graphique en barres avec `Matplotlib` grâce à la commande `plot` et en utilisant les valeurs de '%popent' sur l'axe des x et les valeurs des prix moyens sur l'axe des y.
 
@@ -135,7 +135,7 @@ On obtient l'histogramme suivant :
 
 <img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
 
-Par la suite, nous souhaitons observer le nombre d'annonces de jeans hommes par département en fonction du pourcentage de votes pour des partis écologistes. Notre objectif était de valider ou réfuter l'hypothèse selon laquelle un département plus écologique sera plus susceptible d'effectuer un nombre de transactions plus élevé de produits de seconde main. 
+Par la suite, nous souhaitons observer le nombre d'annonces de jeans hommes par département en fonction du pourcentage de votes pour des partis écologistes. Notre objectif est de valider ou réfuter l'hypothèse selon laquelle un département plus écologique sera plus susceptible d'effectuer un nombre de transactions plus élevé de produits de seconde main. 
 
 Pour ce faire, nous reprenons `dfdesc` ainsi que le raisonnement précédent. Nous changeons simplement l'axe des ordonnées pour y mettre le nombre d'annonces. 
 
@@ -184,10 +184,10 @@ Pour prendre connaissance des variables explicatives significatives (du point de
 <img width="665" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/9e625f96-51b0-4e0f-a17b-fa8080f98d85">
 
 
-Les variables de taille, en particulier 5XL et M semble être les plus significatives. L'une par sa rareté et l'autre son abondance sûrement. Aussi, le revenu par commune semble également significatif. L'état "Neuf avec étiquette" semble également significatif. Le résultat des votes est également moyennement significatif
+Les variables de taille, en particulier 5XL et M semblent être les plus significatives. L'une par sa rareté et l'autre son abondance sûrement. Aussi, le revenu par commune semble également significatif. L'état "Neuf avec étiquette" semble également significatif. Le résultat des votes est également moyennement significatif.
 
 ### Calcul et visualisation des coefficients de la seconde régression linéaire
-Par manque de données, nous soupçonnons que les variables de taille surentraîne le modèle. C'est poourquoi nous calculons une deuxième régression linéaire sans régresser le prix sur les variables de taille. Il vient un R² plus bas, d'approximativement 0,16. Il semblerait que notre hypothèse était mauvaise.
+Par manque de données, nous soupçonnons que les variables de taille surentraînent le modèle. C'est poourquoi nous calculons une deuxième régression linéaire sans régresser le prix sur les variables de taille. Il vient un R² plus bas, d'approximativement 0,16. Il semblerait que notre hypothèse était mauvaise.
 
 Aussi, nous visualisons les coefficients des variables explicatives de cette seconde régression sous la forme d'un barplot.
 
@@ -197,9 +197,9 @@ Aussi, nous visualisons les coefficients des variables explicatives de cette sec
 On remarque que les coefficients sont relativement inchangés en termes d'importance relative.
 
 ### Pistes d'amélioration de la modélisation
-Il serait intéressante d'entraîner et de tester d'autres modèles. Le prix qui a priori aurait été une variable continue, est a en réalité plutôt discret. Il serait alors intéressant d'analyser les résultats de modèle de classification comme une forêt aléatoire.
+Il serait intéressant d'entraîner et de tester d'autres modèles. Le prix qui a priori aurait été une variable continue, est en réalité plutôt discret. Il serait alors intéressant d'analyser les résultats de modèles de classification comme une forêt aléatoire.
 
 ## Conclusion
 Bien que le projet présente un certain nombre de pistes d'amélioration mentionnées au long de celui-ci, nous pouvons en tirer quelques conclusions. 
-Le prix moyen par département des articles [Vinted.fr](https://www.vinted.fr/) ne semble pas être lié ni à sa coloration écologiste ni à son revenu moyen. Le nombre d'annonces par département non plus ne semble pas être corrélé à sa coloration écologiste.
-Nous sommes parvenus à des modèles faiblement prédictif du prix d'un article. Cependant ces derniers ont indiqué que la taille (et en particulier sa relative rareté), le revenu moyen par commune et la coloration écologiste (pouvant être liée au revenu) sont significatifs lors de la prédiction du prix d'un article.
+Le prix moyen par département des articles [Vinted.fr](https://www.vinted.fr/) ne semble être lié ni à sa coloration écologiste ni à son revenu moyen. Le nombre d'annonces par département non plus ne semble pas être corrélé à sa coloration écologiste.
+Nous sommes parvenus à des modèles faiblement prédictifs du prix d'un article. Cependant ces derniers ont indiqué que la taille (et en particulier sa relative rareté), le revenu moyen par commune et la coloration écologiste (pouvant être liée au revenu) sont significatifs lors de la prédiction du prix d'un article.
