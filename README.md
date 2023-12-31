@@ -17,7 +17,7 @@ Le projet est structuré comme suit :
 - **`Revenus et votes.ipynb`** est le notebook responsables de la collecte des données non scrappées et de l'agrégation de toutes données
 - **`Visualisation.ipynb`** est le notebook responsable de la visualisation
 - **`Modélisation.ipynb`** est le notebook responsable de la modélisation
-- **`Bases de données`** correspond au dossier de bases de données utilisées et créées au long du projet
+- **`Bases de données`** est le dossier de bases de données utilisées et créées au long du projet
 
 Faire tourner les notebooks dans le même ordre que les étapes !
 
