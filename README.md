@@ -91,14 +91,14 @@ Toutes les informations sont ainsi gardées en mémoire dans un dictionnaire.
 Le nettoyage de la base de données concerne surtout les marques. Nous regroupons les marques similaires (par exemple Levi's et Levi Strauss & Co.) et assignons une valeur `nan` aux marques comme "je ne sais pas", "sans marque", etc.
 
 ### Sortie du scrapper
-Le dictionnaire nettoyé est ensuite convertit en `DataFrame` puis gardé en mémoire sous forme de fichier csv **`jeanshomme.csv`** dans **`Bases de données`** pour être utilisé par la suite dans nos recherches.
+Le dictionnaire nettoyé est ensuite converti en `DataFrame` puis gardé en mémoire sous forme de fichier csv **`jeanshomme.csv`** dans **`Bases de données`** pour être utilisé par la suite dans nos recherches.
 
 ## Étape 2 : Collecte de données sur les revenus et la coloration écologiste par commune en France métropolitaine
 La collecte et la mise en forme de ces données de revenus et de coloration écologiste, comme leur aggrégation avec les données scrappées sont réalisées dans le notebook **`Revenus et votes.ipynb`**.
 
 ### Données sur les revenus par commune
 Nous commençons par importer une base de données, `revenus.csv` qui donne le nom de la commune, son code postal, le revenu moyen annuel des habitants et le revenu moyen annuel des habitants à l'échelle du département en 2022. Cette base de données a été trouvée sur le site [data-gouv](https://www.data.gouv.fr/fr/).
-A partir de cette base de données, nous créons un petit `DataFrame`, `dfrevdep`, qui contient la liste des départements identifiés par leur code postal, et leur revenu moyen annuel. Pour une meilleur visualisation, nous créons une carte de cette répartition.
+A partir de cette base de données, nous créons un petit `DataFrame`, `dfrevdep`, qui contient la liste des départements identifiés par leur code postal, et leur revenu moyen annuel. Pour une meilleure visualisation, nous créons une carte de cette répartition.
 
 <img width="1054" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/0ad7b85d-25b2-4aa4-9ac3-08f8dead1dc1">
 
@@ -115,7 +115,7 @@ Nous créons deux bases de données pour respectivement une visualisation et une
 
 D'abord nous créons un `DataFrame` de mise en commun des données des annonces de jeans hommes, des résultats de votes par département et du revenu moyen par commune, `dfjointe`. Pour cela, on joint la ville d'annonce à son département et on supprime les lignes où la jointure n'a pas pu être faite, puis on joints les départements à leurs résultats de votes, puis au revenu moyen par commune. Puis on l'exporte sous format csv `donnéesjointes.csv` pour une future modélisation.
 
-Ensuite nous créaons un `DataFrame` de mise en commun du prix moyen par département et de leur résultats de votes, `dfdesc`, que nous exportons sous format csv `desc.vsc` pour une visualisation future.
+Ensuite nous créons un `DataFrame` de mise en commun du prix moyen par département et de leurs résultats de votes, `dfdesc`, que nous exportons sous format csv `desc.vsc` pour une visualisation future.
 
 Exemple de manipulation pour obtenir notre dataframe final : 
 
@@ -123,31 +123,30 @@ Exemple de manipulation pour obtenir notre dataframe final :
 dfjointe = df3.join(dfrev, on='Localisation', how='left')
 ```
 
-## Étape 3 bis : Visualisation 
-À la suite du travail d'agrégation de données dans un `Dataframe` nommé `df3`, nous avons souhaité visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinait. Nous avons alors introduit `dfdesc` qui regroupe `df3` et `dféconupes` grâce à la commande `groupby`.
+## Étape 3 : Visualisation 
+À la suite du travail d'agrégation de données dans un `Dataframe` nommé `df3`, nous souhaitons visualiser les corrélations entre les différentes variables afin de voir si une réponse à nos interrogations initiales se dessinne. Nous introduisons alors `dfdesc` qui regroupe `df3` et `dféconupes` grâce à la commande `groupby`.
 
-Nous avons d'abord cherché à exprimer le prix moyen des jeans hommes par département en fonction du pourcentage de votes pour un des partis écologistes (la NUPES, les Ecologistes). 
-Pour ce faire, nous avons d'abord traité la colonne '%popent'grâce à la fonction `round2` qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
-Nous avons ensuite trié le DataFrame en fonction de cette colonne grâce à la commande `sort_values` qui met ses valeurs dans l'ordre croissant. Cela est nécessaire pour que le graphique en barres soit bien ordonné. 
-Enfin, nous avons créé un graphique en barres avec `Matplotlib` grâce à la commande `plot` et en utilisant les valeurs de '%popent' sur l'axe des x et les valeurs des prix moyens sur l'axe des y.
+Nous cherchons d'abord à exprimer le prix moyen des jeans hommes par département en fonction du pourcentage de votes pour un des partis écologistes (la NUPES, les Ecologistes). 
+Pour ce faire, nous traitons d'abord la colonne '%popent'grâce à la fonction `round2` qui arrondit les valeurs de la colonne à deux décimales et renvoie les chaînes de caractères telles quelles.
+Nous trions ensuite le DataFrame en fonction de cette colonne grâce à la commande `sort_values` qui met ses valeurs dans l'ordre croissant. Cela est nécessaire pour que le graphique en barres soit bien ordonné. 
+Enfin, nous créons un graphique en barres avec `Matplotlib` grâce à la commande `plot` et en utilisant les valeurs de '%popent' sur l'axe des x et les valeurs des prix moyens sur l'axe des y.
 
 On obtient l'histogramme suivant :
 
 <img width="606" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/3b64dd15-006c-48ed-815e-413941df81bf">
 
+Par la suite, nous souhaitons observer le nombre d'annonces de jeans hommes par département en fonction du pourcentage de votes pour des partis écologistes. Notre objectif était de valider ou réfuter l'hypothèse selon laquelle un département plus écologique sera plus susceptible d'effectuer un nombre de transactions plus élevé de produits de seconde main. 
 
-Par la suite, nous avons souhaité observer le nombre d'annonces de jeans hommes par département en fonction du pourcentage de votes pour des partis écologistes. Notre objectif était de valider ou réfuter l'hypothèse selon laquelle un département plus écologique sera plus susceptible d'effectuer un nombre de transactions plus élevé de produits de seconde main. 
-
-Pour ce faire, nous avons repris `dfdesc` ainsi que le raisonnement précédent. Nous avons simplement changé l'axe des ordonnées pour y mettre le nombre d'annonces. 
+Pour ce faire, nous reprenons `dfdesc` ainsi que le raisonnement précédent. Nous changeons simplement l'axe des ordonnées pour y mettre le nombre d'annonces. 
 
 On obtient l'histogramme suivant : 
 
 <img width="603" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/78cd1694-1457-4927-8fb8-1d405e69e412">
 
-Enfin, nous nous sommes penchés sur le lien entre le revenu des départements et les prix des articles recherchés. Pour y parvenir, nous avons importé et nettoyé le petit DataFrame `revdep.csv` qui associe chaque département à son niveau de vie annuel moyen par foyer.
-On utilise la fonction tonum pour transformer les chaînes de caractères en nombres quand elles sont propices à cette transformation afin d'harmoniser les numéros de département. 
-On crée un DataFrame final qu'on nomme dfdesc2 et qui correspond à la fusion de dfdesc et dfdevrep grâce à la commande join.
-Finalement, on utilise la même méthode que pour les deux histogrammes précédents appliquée cette fois-ci à dfdesc2. 
+Enfin, nous nous penchons sur le lien entre le revenu des départements et les prix des articles recherchés. Pour y parvenir, nous importons et nettoyons le petit DataFrame `revdep.csv` qui associe chaque département à son niveau de vie annuel moyen par foyer.
+On utilise la fonction `tonum` pour transformer les chaînes de caractères en nombre quand elles sont propices à cette transformation afin d'harmoniser les numéros de département. 
+On crée un `DataFrame` final qu'on nomme `dfdesc2` et qui correspond à la fusion de `dfdesc` et `dfdevrep` grâce à un `join`.
+Finalement, on utilise la même méthode que pour les deux histogrammes précédents appliquée cette fois-ci à `dfdesc2`. 
 
 On obtient l'histogramme suivant : 
 
@@ -155,10 +154,10 @@ On obtient l'histogramme suivant :
 
 On remarque au vu des trois histogrammes obtenus, que nos hypothèses de corrélation entre prix, nombre de votes, revenus et idéologie environnementale sont remises en question. En effet, il semble que ces paramètres n'influent pas particulièrement les uns sur les autres.
 
-Ainsi, notre dernière partie a pour but d'observer les coefficients de corrélation de différentes variables dont celles mentionnées précédemment lorsqu'on effectue la régression linéaire du prix sur ces dernières. Nous chercherons à comprendre plus précisément les déterminants du prix.
+Ainsi, notre dernière partie a pour but d'observer les coefficients de corrélation de différentes variables dont celles mentionnées précédemment lorsqu'on effectue la régression linéaire du prix sur ces-dernières. Nous chercherons à comprendre plus précisément les déterminants du prix.
 
 ## Etape 4 : Modélisation par régressions linéaires et interprétations
-La modélisation est réalisée dans le notebook `Modélisation.ipynb`. Il s'agit de modéliser le prix d'une annonce de jean pour homme en fonction de certaines de ces caractéristiques. Pour cela nous calculons deux régressions linéaires.
+La modélisation est réalisée dans le notebook `Modélisation.ipynb`. Il s'agit de modéliser le prix d'une annonce de jean pour homme en fonction de certaines de ses caractéristiques. Pour cela nous calculons deux régressions linéaires.
 
 ### Création de la base de données d'intérêt
 Nous préparons un `DataFrame`, `dfmodel`, qui réunit les données dont nous aurons besoin pour entraîner et tester le modèle, à savoir, le prix en euros, la taille, l'état, le nombre de vues, revenu de la commune de vente. Nous ne prenons pas en compte la commune puisque celle-ci est déjà représentée par son revenu moyen et les résultats de votes écologistes par département. Il en est de même pour le département. Nous ne prenons pas l'option de paiement en compte car c'est constamment par carte bleue. Enfin, une piste d'amélioration serait de prendre la marque en compte avec une base de données plus exhaustive des marques, et pour cela un plus grand nombre de d'annonces scrappées.
