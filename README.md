@@ -150,6 +150,7 @@ On crée un DataFrame final qu'on nomme dfdesc2 et qui correspond à la fusion d
 Finalement, on utilise la même méthode que pour les deux histogrammes précédents appliquée cette fois-ci à dfdesc2. 
 
 On obtient l'histogramme suivant : 
+
 <img width="641" alt="image" src="https://github.com/audricms/Vinted-pricer/assets/148848770/e34b435f-fae9-47b2-8659-b85945a6dbb9">
 
 On remarque au vu des trois histogrammes obtenus, que nos hypothèses de corrélation entre prix, nombre de votes, revenus et idéologie environnementale sont remises en question. En effet, il semble que ces paramètres n'influent pas particulièrement les uns sur les autres.
