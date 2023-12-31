@@ -202,4 +202,4 @@ Il serait intéressant d'entraîner et de tester d'autres modèles. Le prix qui 
 ## Conclusion
 Bien que le projet présente un certain nombre de pistes d'amélioration mentionnées au long de celui-ci, nous pouvons en tirer quelques conclusions. 
 Le prix moyen par département des articles [Vinted.fr](https://www.vinted.fr/) ne semble être lié ni à sa coloration écologiste ni à son revenu moyen. Le nombre d'annonces par département non plus ne semble pas être corrélé à sa coloration écologiste.
-Nous sommes parvenus à des modèles faiblement prédictifs du prix d'un article. Cependant ces derniers ont indiqué que la taille (et en particulier sa relative rareté), le revenu moyen par commune et la coloration écologiste (pouvant être liée au revenu) sont significatifs lors de la prédiction du prix d'un article.
+Nous sommes parvenus à des modèles faiblement prédictifs du prix d'un article. Cependant ces-derniers ont indiqué que la taille (et en particulier sa relative rareté), le revenu moyen par commune et la coloration écologiste (pouvant être liée au revenu) sont significatifs lors de la prédiction du prix d'un article.
